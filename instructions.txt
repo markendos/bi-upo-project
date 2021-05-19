@@ -1,0 +1,13 @@
+Prerequisites:
+
+You need to have installed python and pip. It supports versions 2 and 3.
+
+Instalation:
+
+pip install dash
+
+Execution:
+
+In the folder src execute the command > python main.py
+
+You can access the deployes app in localhost:8050
