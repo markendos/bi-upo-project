@@ -6,6 +6,8 @@ Instalation:
 
 pip install dash
 
+python -m pip install mysql-connector-python
+
 Execution:
 
 In the folder src execute the command > python main.py
