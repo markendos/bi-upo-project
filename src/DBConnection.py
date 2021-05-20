@@ -1,0 +1,18 @@
+import mysql.connector
+
+class DBConnection:
+  __instance__ = None
+
+  def __init__(self):
+    if DBConnection.__instance__ is None:
+      DBConnection.__instance__ = self
+      self._db = mysql.connector.connect(host="localhost", user="root", password="admin", database="bi_solutions")
+      
+    else:
+      raise Exception("You can't create another DBConnection class")
+
+  @staticmethod
+  def get_instance():
+    if not DBConnection.__instance__:
+      DBConnection()
+    return DBConnection.__instance__._db
