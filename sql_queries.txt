@@ -1,0 +1,2 @@
+--Obtener los países (de los que se tienen datos de la web) ordenados por orden descendiente de la media de nacimientos de 2008 a 2020--
+SELECT *, AVG(births) FROM bi_solutions.birth b, (SELECT * FROM bi_solutions.shop GROUP BY country) s WHERE b.entity = s.country GROUP BY b.entity ORDER BY b.births DESC;
