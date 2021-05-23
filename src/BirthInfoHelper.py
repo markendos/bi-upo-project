@@ -45,8 +45,5 @@ class BirthInfoHelper:
         prediction = model(year)
         return int(prediction)
 
-    def getBirthPredictionForYear(self, year):
-        return True
-
     ##TODO add method for fetching points so they can be represented into graph
 
