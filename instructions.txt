@@ -8,6 +8,8 @@ pip install dash
 
 python -m pip install mysql-connector-python
 
+pip install numpy
+
 Execution:
 
 In the folder src execute the command > python main.py
