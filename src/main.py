@@ -1,9 +1,13 @@
+from logging import PlaceHolder
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+from ProductsBoughtTogether import ProductsBoughtTogether
+from dash.dependencies import Input, Output
 
-
+numberOfPBT = 5
 def definirLayout():
+    pbt = ProductsBoughtTogether()
     app.layout = html.Div(children=[
     html.H1(children='Sample App'),
 
@@ -22,14 +26,20 @@ def definirLayout():
                 'title': 'Dash Data Visualization'
             }
         }
-    )
+    ),
+    html.H2(children='Products that are bought together often'),
+    pbt.getTable()
+    
 ])
-    return 0
+
+
+
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 definirLayout()
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
