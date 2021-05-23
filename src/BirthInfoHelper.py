@@ -46,4 +46,3 @@ class BirthInfoHelper:
         return int(prediction)
 
     ##TODO add method for fetching points so they can be represented into graph
-
