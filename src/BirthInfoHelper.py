@@ -3,7 +3,7 @@ import numpy
 
 class BirthInfoHelper:
     def __init__(self):
-        self.cursor = DBConnection().get_instance().cursor()
+        self.cursor = DBConnection.get_instance().cursor()
 
         purchasesByCountriesQueries = "SELECT country, count(*) as purchasesNum FROM shop GROUP BY country ORDER BY purchasesNum"
         self.cursor.execute(purchasesByCountriesQueries)
@@ -44,9 +44,6 @@ class BirthInfoHelper:
         # line = numpy.linspace(min(x), max(x), 100)
         prediction = model(year)
         return int(prediction)
-
-    def getBirthPredictionForYear(self, year):
-        return True
 
     ##TODO add method for fetching points so they can be represented into graph
 
