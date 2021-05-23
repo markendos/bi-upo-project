@@ -4,9 +4,13 @@ You need to have installed python and pip. It supports versions 2 and 3.
 
 Instalation:
 
+pip install numpy
+
 pip install dash
 
 python -m pip install mysql-connector-python
+
+pip install numpy
 
 Execution:
 

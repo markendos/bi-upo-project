@@ -7,9 +7,6 @@ class DBConnection:
     if DBConnection.__instance__ is None:
       DBConnection.__instance__ = self
       self._db = mysql.connector.connect(host="localhost", user="root", password="", database="bi_solutions")
-      
-    else:
-      raise Exception("You can't create another DBConnection class")
 
   @staticmethod
   def get_instance():
