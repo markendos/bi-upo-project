@@ -1,7 +1,7 @@
 from DBConnection import DBConnection
 import numpy
 
-class BirthInfoByCountry:
+class BirthInfoHelper:
     def __init__(self):
         self.cursor = DBConnection().get_instance().cursor()
 
@@ -48,9 +48,5 @@ class BirthInfoByCountry:
     def getBirthPredictionForYear(self, year):
         return True
 
-def main():
-    info = BirthInfoByCountry()
-    print(info.getBirthNumberPredictionForCountryAndYear('United Kingdom', 2021))
+    ##TODO add method for fetching points so they can be represented into graph
 
-if __name__ == "__main__":
-    main()
