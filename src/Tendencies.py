@@ -1,8 +1,13 @@
 import datetime
 from DBConnection import DBConnection as c
 
-class Datamart:
-    def get_variables():
+class TendenciesDatamart:
+    cursor = None
+    
+    def __init__(self):
+        self.cursor = c.get_instance().cursor()
+        
+    def getVariables(self):
         return [
                 {'label': 'Category', 'value': 'category'},
                 {'label': 'Color', 'value': 'colour'},
@@ -11,11 +16,9 @@ class Datamart:
                 {'label': 'Model Photography', 'value': 'model_photography'},
                 ]
     
-    def get_values(variable):
-        con = c.get_instance()
-        cursor = con.cursor()
-        cursor.execute("SELECT distinct({}) FROM shop ORDER BY 1 ASC".format(variable))
-        result = cursor.fetchall()
+    def getValues(self, variable):
+        self.cursor.execute("SELECT distinct({}) FROM shop ORDER BY 1 ASC".format(variable))
+        result = self.cursor.fetchall()
         
         options = list() 
         for x in result:
@@ -23,13 +26,11 @@ class Datamart:
             
         return options
 
-    def get_plot_data(variable, value):
-        con = c.get_instance()
-        cursor = con.cursor()
+    def getPlotData(self, variable, value):
         data = list()
         for v in value:
-            cursor.execute("SELECT CONCAT('2008-' ,month, '-', day), count(*) FROM shop WHERE {} LIKE ('{}') GROUP BY month, day ORDER BY month ASC, day ASC;".format(variable, v))
-            result = cursor.fetchall()
+            self.cursor.execute("SELECT CONCAT('2008-' ,month, '-', day), count(*) FROM shop WHERE {} LIKE ('{}') GROUP BY month, day ORDER BY month ASC, day ASC;".format(variable, v))
+            result = self.cursor.fetchall()
             dict = {'x': list(), 'y': list(), 'name': v}
             
             for r in result:

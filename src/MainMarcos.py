@@ -3,9 +3,10 @@ import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objects as go
 from dash.dependencies import Input, Output
-from Tendencies import Datamart as dm
+from Tendencies import TendenciesDatamart as TDM
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+dm = TDM()
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app.layout = html.Div(children=[
@@ -13,7 +14,7 @@ app.layout = html.Div(children=[
         html.Div([
             dcc.Dropdown(
                 id='first-select',
-                options=dm.get_variables(),
+                options=dm.getVariables(),
                 value='',
                 placeholder="Select a variable",
             )
@@ -23,7 +24,7 @@ app.layout = html.Div(children=[
         html.Div([
             dcc.Dropdown(
                 id='second-select',
-                options=dm.get_values('country'),
+                options= list(),
                 value='',
                 placeholder="Select a value",
                 multi=True,
@@ -63,7 +64,7 @@ def create_time_series(data, axis_type, variable):
     Input('second-select', 'value'),
     Input('crossfilter-yaxis-type', 'value')])
 def update_timeseries(variable, value, yaxis_type):
-    data = dm.get_plot_data(variable, value)
+    data = dm.getPlotData(variable, value)
     return create_time_series(data, yaxis_type, variable)
 
 @app.callback(
@@ -74,7 +75,7 @@ def update_values_selector(value):
     if value in (None, ''):
         return list(), ''
     else:
-        return dm.get_values(value), ''
+        return dm.getValues(value), ''
 
 @app.callback(
     Output('second-select', 'disabled'),
