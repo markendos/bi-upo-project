@@ -3,7 +3,7 @@ import numpy
 
 class BirthInfoHelper:
     def __init__(self):
-        self.cursor = DBConnection().get_instance().cursor()
+        self.cursor = DBConnection.get_instance().cursor()
 
         purchasesByCountriesQueries = "SELECT country, count(*) as purchasesNum FROM shop GROUP BY country ORDER BY purchasesNum"
         self.cursor.execute(purchasesByCountriesQueries)
