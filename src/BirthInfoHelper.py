@@ -2,8 +2,6 @@ from DBConnection import DBConnection
 import numpy
 
 class BirthInfoHelper:
-
-    ##TODO add dependency injection for DB connection
     def __init__(self):
         self.cursor = DBConnection().get_instance().cursor()
 
@@ -51,4 +49,3 @@ class BirthInfoHelper:
         return True
 
     ##TODO add method for fetching points so they can be represented into graph
-
