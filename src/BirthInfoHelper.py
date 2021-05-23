@@ -2,6 +2,8 @@ from DBConnection import DBConnection
 import numpy
 
 class BirthInfoHelper:
+
+    ##TODO add dependency injection for DB connection
     def __init__(self):
         self.cursor = DBConnection().get_instance().cursor()
 
