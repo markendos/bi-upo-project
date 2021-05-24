@@ -47,7 +47,9 @@ class BirthsAndGdpHelper:
         return {'x': [year], 'y': [int(prediction)], 'name' : 'Prediction for next year'}
 
     def getPlotDataBirths(self, countryName):
-        cursor = DBConnection.get_instance().cursor()
+        connection = DBConnection().db
+        cursor = connection.cursor()
+
         dict = {'x': list(), 'y': list(), 'name': 'Births by year'}
 
         if countryName == '':
@@ -60,6 +62,9 @@ class BirthsAndGdpHelper:
         for row in data:
             dict['x'].append(row[0])
             dict['y'].append(row[1])
+
+        cursor.close()
+        connection.close()
 
         return dict
 
@@ -83,7 +88,9 @@ class BirthsAndGdpHelper:
         return {'x': [year], 'y': [int(prediction)], 'name': 'Prediction for next year'}
 
     def getPlotDataGDP(self, countryName):
-        cursor = DBConnection.get_instance().cursor()
+        connection = DBConnection().db
+        cursor = connection.cursor()
+
         dict = {'x': list(), 'y': list(), 'name': 'GDP by year'}
 
         if countryName == '':
@@ -99,12 +106,7 @@ class BirthsAndGdpHelper:
                 dict['x'].append(int(columnNames[i]))
                 dict['y'].append(data[0][i])
 
+        cursor.close()
+        connection.close()
+
         return dict
-
-## todo remove
-def main():
-    info = BirthsAndGdpHelper()
-    print(info.getPlotDataGDP('Afghanistan'))
-
-if __name__ == "__main__":
-    main()

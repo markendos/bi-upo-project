@@ -14,8 +14,9 @@ class ProductsBoughtTogether:
 
 
     def createMatrix(self):
-        db = DBConnection.get_instance()
-        cursor = db.cursor()
+        connection = DBConnection().db
+        cursor = connection.cursor()
+
         cursor.execute("SELECT DISTINCT(product) FROM shop order by product")
         result = cursor.fetchall()
         numProducts = len(result)
@@ -40,6 +41,8 @@ class ProductsBoughtTogether:
                         self.matrix[index_x][index_y] += 1
                         self.matrix[index_y][index_x] += 1
 
+        cursor.close()
+        connection.close()
     
     def calculateMaxValues(self):
         matrixAux = self.matrix
