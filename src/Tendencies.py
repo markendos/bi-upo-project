@@ -1,12 +1,8 @@
 import datetime
-from DBConnection import DBConnection as c
+from DBConnection import DBConnection
 
 class TendenciesDatamart:
-    cursor = None
-    
-    def __init__(self):
-        self.cursor = c.get_instance().cursor()
-        
+
     def getVariables(self):
         return [
                 {'label': 'Category', 'value': 'category'},
@@ -17,27 +13,40 @@ class TendenciesDatamart:
                 ]
     
     def getValues(self, variable):
-        self.cursor.execute("SELECT distinct({}) FROM shop ORDER BY 1 ASC".format(variable))
-        result = self.cursor.fetchall()
+        connection = DBConnection().db
+        cursor = connection.cursor()
+
+        cursor.execute("SELECT distinct({}) FROM shop ORDER BY 1 ASC".format(variable))
+        result = cursor.fetchall()
         
         options = list() 
         for x in result:
             options.append({'label': x[0], 'value': x[0]})
-            
+
+        cursor.close()
+        connection.close()
+
         return options
 
     def getPlotData(self, variable, value):
         data = list()
         for v in value:
-            self.cursor.execute("SELECT CONCAT('2008-' ,month, '-', day), count(*) FROM shop WHERE {} LIKE ('{}') GROUP BY month, day ORDER BY month ASC, day ASC;".format(variable, v))
-            result = self.cursor.fetchall()
+            connection = DBConnection().db
+            cursor = connection.cursor()
+
+            cursor.execute("SELECT CONCAT('2008-' ,month, '-', day), count(*) FROM shop WHERE {} LIKE ('{}') GROUP BY month, day ORDER BY month ASC, day ASC;".format(variable, v))
+            result = cursor.fetchall()
             dict = {'x': list(), 'y': list(), 'name': v}
             
             for r in result:
                 date = r[0].split("-")
                 dict['x'].append(datetime.datetime(int(date[0]), int(date[1]), int(date[2])))
                 dict['y'].append(r[1])
-            
+
+            cursor.close()
+            connection.close()
+
             data.append(dict)
+
           
         return data

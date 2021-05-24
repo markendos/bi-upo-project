@@ -10,9 +10,10 @@ class BestSalesByMonth:
 
 
     def getTable(self):
+        connection = DBConnection().db
+        cursor = connection.cursor()
+
         monthsDict = {1: "January", 2: "February", 3: "March", 4: "April", 5: "May", 6: "June", 7: "July", 8:"August", 9: "September", 10: "October", 11: "November", 12: "December"}
-        db = DBConnection.get_instance()
-        cursor = db.cursor()
         cursor.execute("select month, product, count(product) AS 'value_occurrence' FROM bi_solutions.shop group by month")
         result = cursor.fetchall()
         sales = []
@@ -24,4 +25,8 @@ class BestSalesByMonth:
             data=sales,
             page_size=5
         )
+
+        cursor.close()
+        connection.close()
+
         return self.table
