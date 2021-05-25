@@ -2,31 +2,6 @@ from DBConnection import DBConnection
 import numpy
 
 class BirthsAndGdpHelper:
-    def __init__(self):
-        # purchasesByCountriesQueries = "SELECT country, count(*) as purchasesNum FROM shop GROUP BY country ORDER BY purchasesNum"
-        # self.cursor.execute(purchasesByCountriesQueries)
-        # purchasesByCountries = self.cursor.fetchall()
-
-        finalData = {}
-        # for purchaseByCountry in purchasesByCountries:
-        #     country, purchasesNum = purchaseByCountry
-        #     birthsByCountriesQuery = "SELECT births FROM birth where year = 2008 and entity='" + country + "'"
-        #     self.cursor.execute(birthsByCountriesQuery)
-        #     birthByCountry = self.cursor.fetchall()
-        #     birthsNum = birthByCountry[0][0]
-        #     finalData[country] = (purchasesNum, birthsNum)
-
-        self.data = finalData
-
-    def getBirthsNumber(self, countryName):
-        return self.data[countryName][1]
-
-    def getPurchasesNumber(self, countryName):
-        return self.data[countryName][0]
-
-    def getAllData(self):
-        return self.data
-
     def getBirthNumberPredictionForCountryAndYear(self, countryName, year):
         if countryName == '':
             return {'x': [], 'y': [], 'name': 'Prediction for next year'}
@@ -110,3 +85,26 @@ class BirthsAndGdpHelper:
         connection.close()
 
         return dict
+
+    def getPlotDataBirthsClicks(self):
+        connection = DBConnection().db
+        cursor = connection.cursor()
+
+        purchasesByCountriesQueries = "SELECT country, count(*) as clicksNum FROM shop GROUP BY country ORDER BY clicksNum"
+        cursor.execute(purchasesByCountriesQueries)
+        clicksByCountries = cursor.fetchall()
+
+
+        data = []
+        for clicksByCountry in clicksByCountries:
+            country, clicksNum = clicksByCountry
+            birthsByCountriesQuery = "SELECT births FROM birth where year = 2008 and entity='" + country + "'"
+            cursor.execute(birthsByCountriesQuery)
+            birthByCountry = cursor.fetchall()
+            birthsNum = birthByCountry[0][0]
+            data.append({'x' : [clicksNum], 'y' : [birthsNum], 'name' : country})
+
+        cursor.close()
+        connection.close()
+
+        return data
