@@ -4,42 +4,63 @@ import dash_core_components as dcc
 import dash_html_components as html
 from ProductsBoughtTogether import ProductsBoughtTogether
 from dash.dependencies import Input, Output
+import dash_bootstrap_components as dbc
+
+from root import app
+
+import MainAmalio as ma
 
 numberOfPBT = 5
+
+
+
+
 def definirLayout():
-    pbt = ProductsBoughtTogether()
     app.layout = html.Div(children=[
     html.H1(children='Sample App'),
+    html.Div(children=[
+            dbc.Tabs(
+                [
+                    dbc.Tab(label="Tab 1", tab_id="tab-1"),
+                    dbc.Tab(label="Tab 2", tab_id="tab-2"),
+                ],
+                id="tabs",
+                active_tab="tab-1",
+            ),
+            html.Div(id='content')
 
-    html.Div(children='''
-        Sample App.
-    '''),
-
-    dcc.Graph(
-        id='example-graph',
-        figure={
-            'data': [
-                {'x': ["Lunes", "Martes", "Miercoles"], 'y': [150, 200, 109], 'type': 'bar', 'name': '2015'},
-                {'x': ["Lunes", "Martes", "Miercoles"], 'y': [150, 150, 150], 'type': 'bar', 'name': '2018'},
-            ],
-            'layout': {
-                'title': 'Dash Data Visualization'
-            }
-        }
-    ),
-    html.H2(children='Products that are bought together often'),
-    pbt.getTable()
+        ]),
     
-])
+    ])
+    '''app.layout = html.Div(children=[
+        dbc.Card([
+                dbc.CardHeader(
+                    dbc.Tabs(
+                        [
+                            dbc.Tab(label="Tab 1", tab_id="tab-1"),
+                            dbc.Tab(label="Tab 2", tab_id="tab-2"),
+                        ],
+                        id="card-tabs",
+                        card=True,
+                        active_tab="tab-1",
+                    )
+                ),
+                
+            ]),
+            html.Div(id='content'),
+    ])'''
+
+
+@app.callback(Output('content', 'children'),
+              Input('tabs', 'active_tab'))
+def render_content(tab):
+    if tab == 'tab-1':
+        return ma.get_layout()
+    elif tab == 'tab-2':
+        return "asdasdas"
 
 
 
-
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 definirLayout()
-
-
 if __name__ == '__main__':
     app.run_server(debug=True)
