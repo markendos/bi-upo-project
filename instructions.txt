@@ -10,7 +10,7 @@ pip install dash
 
 python -m pip install mysql-connector-python
 
-pip install numpy
+pip install pandas
 
 Execution:
 
