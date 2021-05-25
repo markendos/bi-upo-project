@@ -90,21 +90,33 @@ class BirthsAndGdpHelper:
         connection = DBConnection().db
         cursor = connection.cursor()
 
-        purchasesByCountriesQueries = "SELECT country, count(*) as clicksNum FROM shop GROUP BY country ORDER BY clicksNum"
-        cursor.execute(purchasesByCountriesQueries)
+        # usersByCountriesQueries = "SELECT subtable.country, count(*) FROM ( SELECT country, session_id, count(*) FROM shop GROUP BY session_id, country) as subtable GROUP BY subtable.country"
+        clicksByCountriesQueries = "SELECT country, count(*) as clicksNum FROM shop GROUP BY country ORDER BY clicksNum"
+        cursor.execute(clicksByCountriesQueries)
         clicksByCountries = cursor.fetchall()
-
 
         data = []
         for clicksByCountry in clicksByCountries:
             country, clicksNum = clicksByCountry
+
+            gdpForCountryQuery = "SELECT `2008` FROM gdp where country='" + country + "'"
+            cursor.execute(gdpForCountryQuery)
+            gdpForCountry = cursor.fetchall()[0][0]
+
             birthsByCountriesQuery = "SELECT births FROM birth where year = 2008 and entity='" + country + "'"
             cursor.execute(birthsByCountriesQuery)
             birthByCountry = cursor.fetchall()
             birthsNum = birthByCountry[0][0]
-            data.append({'x' : [clicksNum], 'y' : [birthsNum], 'name' : country})
+            data.append({'x' : [gdpForCountry], 'y' : [birthsNum], 'z': [clicksNum], 'name' : country})
 
         cursor.close()
         connection.close()
 
         return data
+
+def main():
+    info = BirthsAndGdpHelper()
+    print(info.getPlotDataBirthsClicks())
+
+if __name__ == "__main__":
+    main()

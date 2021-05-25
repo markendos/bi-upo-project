@@ -25,12 +25,33 @@ app.layout = html.Div(children=[
 def create_births_click_graph(data, axis_type):
     fig = go.Figure()
 
+    maxZ = 0
     for record in data:
-        fig.add_trace(go.Scatter(x=record['x'], y=record['y'], mode='lines+markers', name=record['name']))
+        maxZ = max(maxZ, max(record['z']))
+
+    for record in data:
+        fig.add_trace(go.Scatter(
+            x=record['x'], y=record['y'],
+            mode='lines+markers',
+            name=record['name'],
+            marker_size=record['z'],
+            text=[
+                'Country:' + str(record['name']) +
+                '<br>GDP:' + str(record['x']) +
+                '<br>Birth number:' + str(record['y']) +
+                '<br>Clicks number:' + str(record['z'])
+            ],
+            marker=dict(
+                size=record['z'],
+                sizemode='area',
+                sizeref=2. * maxZ / (40. ** 2),
+                sizemin=4
+            )
+        ))
 
     fig.update_yaxes(type='linear' if axis_type == 'Linear' else 'log')
 
-    fig.update_layout(title="Clicks and births distribution for 2008", xaxis_title="Clicks", yaxis_title="Births number",
+    fig.update_layout(title="GDP, clicks and births distribution for 2008", xaxis_title="GDP", yaxis_title="Births number",
                       margin={'l': 20, 'b': 30, 'r': 10, 't': 40})
 
     return fig
