@@ -1,71 +1,85 @@
 import dash
 import dash_core_components as dcc
+import dash_bootstrap_components as dbc
 import dash_html_components as html
 import plotly.graph_objects as go
 from dash.dependencies import Input, Output
 from Tendencies import TendenciesDatamart as TDM
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+from root import app
+
 dm = TDM()
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-app.layout = html.Div(children=[
-    html.Div([
+selector_variables = html.Div([
+    dcc.Dropdown(
+        id='first-select',
+        options=dm.getVariables(),
+        value='',
+        placeholder="Select a variable",
+    )
+],
+    style={'width': '48%', 'display': 'flex', 'flex-direction': 'column'})
+selector_values = html.Div([
+    dcc.Dropdown(
+        id='second-select',
+        options=list(),
+        value='',
+        placeholder="Select a value",
+        multi=True,
+        disabled=True
+    ),
+],
+    style={'width': '48%', 'display': 'flex', 'flex-direction': 'column'})
+radio_items = dcc.RadioItems(
+            id='crossfilter-yaxis-type',
+            options=[{'label': i, 'value': i} for i in ['Linear', 'Log']],
+            value='Linear',
+            labelStyle={'display': 'inline-block', 'padding-left': '2rem'})
+
+tendency_graph = dbc.Card([
+    dbc.CardBody([
         html.Div([
-            dcc.Dropdown(
-                id='first-select',
-                options=dm.getVariables(),
-                value='',
-                placeholder="Select a variable",
-            )
-        ],
-        style={'width': '48%', 'display': 'flex', 'flex-direction': 'column'}),   
-        
-        html.Div([
-            dcc.Dropdown(
-                id='second-select',
-                options= list(),
-                value='',
-                placeholder="Select a value",
-                multi=True,
-                disabled=True
-            ),
-        ],
-        style={'width': '48%', 'display': 'flex', 'flex-direction': 'column'}),   
-    ],
-    style={'display': 'flex', 'justify-content': 'space-between', 'padding': '2rem'}),
-        
+        selector_variables,
+        selector_values,
+    ],style={'display': 'flex', 'justify-content': 'space-between', 'padding': '2rem'}),
+
     html.Div([
-        dcc.RadioItems(
-                id='crossfilter-yaxis-type',
-                options=[{'label': i, 'value': i} for i in ['Linear', 'Log']],
-                value='Linear',
-                labelStyle={'display': 'inline-block', 'padding-left': '2rem'}),
+        radio_items,
         dcc.Graph(id='time-series'),
     ],
-    style={'width': '100%', 'display': 'flex', 'flex-direction': 'column'}),
-])
+        style={'width': '100%', 'display': 'flex', 'flex-direction': 'column'}),
+
+    ])
+], className='h-100 my-4 mx-1')
+
+layout = html.Div([dbc.Col(tendency_graph)], className='d-flex')
+
+
 
 def create_time_series(data, axis_type, variable):
     fig = go.Figure()
     for d in data:
-        fig.add_trace(go.Scatter(x=d['x'], y=d['y'], mode='lines+markers', name=d['name']))
+        fig.add_trace(go.Scatter(x=d['x'], y=d['y'],
+                                 mode='lines+markers', name=d['name']))
 
     fig.update_yaxes(type='linear' if axis_type == 'Linear' else 'log')
     if variable == '':
         variable = 'none'
-    fig.update_layout(title="Tendency chart ({})".format(variable), xaxis_title="Date", yaxis_title="Frequency", margin={'l': 20, 'b': 30, 'r': 10, 't': 40})
-    
+    fig.update_layout(title="Tendency chart ({})".format(variable), xaxis_title="Date",
+                      yaxis_title="Frequency", margin={'l': 20, 'b': 30, 'r': 10, 't': 40})
+
     return fig
+
 
 @app.callback(
     Output('time-series', 'figure'),
     [Input('first-select', 'value'),
-    Input('second-select', 'value'),
-    Input('crossfilter-yaxis-type', 'value')])
+     Input('second-select', 'value'),
+     Input('crossfilter-yaxis-type', 'value')])
 def update_timeseries(variable, value, yaxis_type):
     data = dm.getPlotData(variable, value)
     return create_time_series(data, yaxis_type, variable)
+
 
 @app.callback(
     Output('second-select', 'options'),
@@ -77,11 +91,16 @@ def update_values_selector(value):
     else:
         return dm.getValues(value), ''
 
+
 @app.callback(
     Output('second-select', 'disabled'),
     [Input('first-select', 'value')])
 def set_values_selector_state(value):
     return value in (None, '')
+
+
+def get_layout():
+    return layout
 
 
 if __name__ == '__main__':
