@@ -16,7 +16,7 @@ class ModesDatamart:
         result = cursor.fetchall()
         
         options = list()
-        options.append({'label': 'General', 'value': 'None'})
+        options.append({'label': 'General', 'value': 'General'})
         for x in result:
             options.append({'label': x[0], 'value': x[0]})
 
@@ -32,7 +32,7 @@ class ModesDatamart:
         conn=c()
         cursor = conn.db.cursor()
         data = list()
-        if pais=='None':
+        if pais=='General' or pais == None:
             query = "SELECT category, COUNT(clicks) FROM shop GROUP BY category"
         else:
             query = "SELECT category, COUNT(clicks) FROM shop WHERE country='{}' GROUP BY category".format(pais)
