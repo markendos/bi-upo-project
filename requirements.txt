@@ -2,3 +2,4 @@ numpy
 dash
 mysql-connector-python
 pandas
+dash-bootstrap-components
