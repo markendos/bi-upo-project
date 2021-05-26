@@ -12,6 +12,7 @@ import MainAmalio as ma
 import MainMarcos as mm
 import mainAlvaro as malv
 import mainLuka as ml
+import about as aboutus
 numberOfPBT = 5
 
 
@@ -26,7 +27,8 @@ def definirLayout():
                     dbc.Tab(label="Tab 1", tab_id="tab-1"),
                     dbc.Tab(label="Tab 2", tab_id="tab-2"),
                     dbc.Tab(label="Tab 3", tab_id="tab-3"),
-                    dbc.Tab(label="Tab 4", tab_id="tab-4"),
+                    dbc.Tab(label="Estrategia", tab_id="tab-4"),
+                    dbc.Tab(label="About us", tab_id="tab-5"),
                 ],
                 id="tabs",
                 active_tab="tab-1",
@@ -49,6 +51,8 @@ def render_content(tab):
         return malv.get_layout()
     elif tab == 'tab-4':
         return ml.get_layout()
+    elif tab == 'tab-5':
+        return aboutus.get_layout()
 
 
 
