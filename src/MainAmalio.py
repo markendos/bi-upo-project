@@ -37,9 +37,9 @@ selector_propiedades = html.Div([
 radio_items = html.Div([
     dcc.RadioItems(
         id='agg-operation',
-        options=[{'label': i, 'value': i} for i in ['Avg', 'Max']],
-        value='Avg',
-        labelStyle={'display': 'inline-block', 'margin': '3px'}),
+        options=ddm.getAggregationOperations(),
+        value='avg',
+        labelStyle={'display': 'inline-block', 'padding-left': '1rem'}),
 ])
 
 histograma = html.Div([
@@ -51,7 +51,7 @@ hist_card = dbc.Card([
     dbc.CardHeader([
         html.H4(children='Frequency histogram'),
         html.Span(
-            children='Histogram with the Maximun and Average by session of the elements Clicks, Page number and Price')
+            children='Histogram with the value distribution of the numeric variables grouped by user session with aggregation options')
     ]),
 
     dbc.CardBody([
@@ -83,7 +83,7 @@ def create_hist(datos, axis_type, variable):
 
     fig.add_trace(go.Histogram(datos))
 
-    fig.update_layout(title="Frequency Hist of ({})".format(variable), xaxis_title="Occurence count of {}".format(variable),
+    fig.update_layout(title="Frequency Hist of ({})".format(variable), xaxis_title="Value of variable '{}'".format(variable),
                       yaxis_title="Frequency", margin={'l': 20, 'b': 30, 'r': 10, 't': 40})
 
     return fig

@@ -14,17 +14,17 @@ dataHelper = BirthsAndGdpHelper()
 graph_card=dbc.Card([
     dbc.CardBody([
         dcc.RadioItems(
-            id='crossfilter-yaxis-type',
-            options=[{'label': i, 'value': i} for i in ['Linear', 'Log']],
-            value='Linear',
-            labelStyle={'display': 'inline-block', 'padding-left': '2rem'}),
+            id='crossfilter-query-type',
+            options=[{'label': i, 'value': i} for i in ['Clicks', 'Sessions (users)']],
+            value='Clicks',
+            labelStyle={'display': 'inline-block', 'padding-left': '1rem'}),
         dcc.Graph(id='births-clicks-graph')
     ])
 ], className='h-100 my-4 mx-1 shadow-lg')
 
 layout=dbc.Col(graph_card,width=5)
 ## BIRTHS
-def create_births_click_graph(data, axis_type):
+def create_births_click_graph(data, queryType):
     fig = go.Figure()
 
     maxZ = 0
@@ -38,10 +38,10 @@ def create_births_click_graph(data, axis_type):
             name=record['name'],
             marker_size=record['z'],
             text=[
-                'Country:' + str(record['name']) +
-                '<br>GDP:' + str(record['x']) +
-                '<br>Birth number:' + str(record['y']) +
-                '<br>Clicks number:' + str(record['z'])
+                'Country: {}'.format(record['name']) +
+                '<br>GDP: {}'.format(record['x']) +
+                '<br>Birth number: {}'.format(record['y']) +
+                '<br>Number of {}: {}'.format(queryType, record['z'])
             ],
             marker=dict(
                 size=record['z'],
@@ -51,19 +51,17 @@ def create_births_click_graph(data, axis_type):
             )
         ))
 
-    fig.update_yaxes(type='linear' if axis_type == 'Linear' else 'log')
-
-    fig.update_layout(title="GDP, clicks and births distribution for 2008", xaxis_title="GDP", yaxis_title="Births number",
+    fig.update_layout(title="GDP, {} and births distribution by country in 2008".format(queryType), xaxis_title="GDP", yaxis_title="Births number",
                       margin={'l': 20, 'b': 30, 'r': 10, 't': 40})
 
     return fig
 
 @app.callback(
     Output('births-clicks-graph', 'figure'),
-    [Input('crossfilter-yaxis-type', 'value')])
-def update_births_clicks_graph(yaxis_type):
-    data = dataHelper.getPlotDataBirthsClicks()
-    return create_births_click_graph(data, yaxis_type)
+    [Input('crossfilter-query-type', 'value')])
+def update_births_clicks_graph(queryType):
+    data = dataHelper.getPlotDataBirthsClicks(queryType == 'Clicks')
+    return create_births_click_graph(data, queryType)
 
 def get_layout():
     return layout

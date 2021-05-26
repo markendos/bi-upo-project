@@ -14,22 +14,21 @@ class DistributionsDatamart:
                 {'label': 'Page number', 'value': 'page'},
                 ]
     
-    def getValues(self, variable):
+    def getAggregationOperations(self):
         return [
-                {'label': 'Average Value', 'value': 'avg'},
-                {'label': 'Maximun value', 'value': 'max'},
+                {'label': 'Avg', 'value': 'avg'},
+                {'label': 'Min', 'value': 'min'},
+                {'label': 'Max', 'value': 'max'},
                 ]
 
     def getPlotData(self, variable, operation):
         conn=c()
         cursor = conn.db.cursor()
         data = list()
-        if operation=="Avg":
-            query = "SELECT session_id, AVG({}) FROM shop GROUP BY session_id;"
-        else:
-            query = "SELECT session_id, MAX({}) FROM shop GROUP BY session_id;"
+        
+        query = "SELECT session_id, {}({}) FROM shop GROUP BY session_id;"
 
-        cursor.execute(query.format(variable))
+        cursor.execute(query.format(operation, variable))
         
         result = cursor.fetchall()
         

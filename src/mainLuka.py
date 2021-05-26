@@ -131,10 +131,10 @@ def create_birth_graph(data, axis_type, prediction):
     Output('births-graph', 'figure'),
     [Input('country-select', 'value'),
      Input('crossfilter-yaxis-type', 'value')])
-def update_births_graph(value, yaxis_type):
-    data = dataHelper.getPlotDataBirths(value)
+def update_births_graph(country, yaxis_type):
+    data = dataHelper.getPlotDataBirths(country)
     predictionForNextYear = dataHelper.getBirthNumberPredictionForCountryAndYear(
-        value, 2021)
+        country, 2021)
     return create_birth_graph(data, yaxis_type, predictionForNextYear)
 
 # GDP
@@ -161,12 +161,11 @@ def create_gdp_graph(data, axis_type, prediction):
     Output('gdp-graph', 'figure'),
     [Input('country-select', 'value'),
      Input('crossfilter-yaxis-type-2', 'value')])
-def update_gdp_graph(value, yaxis_type):
-    data = dataHelper.getPlotDataGDP(value)
+def update_gdp_graph(country, yaxis_type):
+    data = dataHelper.getPlotDataGDP(country)
     predictionForNextYear = dataHelper.getGDPPredictionByYearAndCountry(
-        value, 2021)
+        country, 2021)
     return create_gdp_graph(data, yaxis_type, predictionForNextYear)
-
 
 def get_layout():
     return layout

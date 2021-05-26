@@ -3,7 +3,7 @@ import numpy
 
 class BirthsAndGdpHelper:
     def getBirthNumberPredictionForCountryAndYear(self, countryName, year):
-        if countryName == '':
+        if countryName in (None, ''):
             return {'x': [], 'y': [], 'name': 'Prediction for next year'}
 
         points = self.getPlotDataBirths(countryName)
@@ -27,7 +27,7 @@ class BirthsAndGdpHelper:
 
         dict = {'x': list(), 'y': list(), 'name': 'Births by year'}
 
-        if countryName == '':
+        if countryName in (None, ''):
             return dict
 
         birthDataBYCountryQuery = "SELECT year, births FROM birth WHERE entity='" + countryName + "'"
@@ -44,7 +44,7 @@ class BirthsAndGdpHelper:
         return dict
 
     def getGDPPredictionByYearAndCountry(self, countryName, year):
-        if countryName == '':
+        if countryName in (None, ''):
             return {'x': [], 'y': [], 'name': 'Prediction for next year'}
 
         points = self.getPlotDataGDP(countryName)
@@ -68,14 +68,18 @@ class BirthsAndGdpHelper:
 
         dict = {'x': list(), 'y': list(), 'name': 'GDP by year'}
 
-        if countryName == '':
+        if countryName in (None, ''):
             return dict
 
-        gdpDataByCountryQuery = "SELECT * FROM gdp WHERE country='" + countryName + "'"
+        dateRange = [*range(2008, 2020)]
+        dateRange = map(str, dateRange);
+        dateRange = map(lambda x: "`{}`".format(x), dateRange)
+        
+        gdpDataByCountryQuery = "SELECT country,{} FROM gdp WHERE country LIKE '{}'".format(','.join(map(str, dateRange)), countryName)
         cursor.execute(gdpDataByCountryQuery)
         data = cursor.fetchall()
+    
         columnNames = [i[0] for i in cursor.description]
-
         for i in range(1, len(columnNames)):
             if data[0][i] is not None:
                 dict['x'].append(int(columnNames[i]))
@@ -86,19 +90,22 @@ class BirthsAndGdpHelper:
 
         return dict
 
-    def getPlotDataBirthsClicks(self):
+    def getPlotDataBirthsClicks(self, clicks=True):
         connection = DBConnection().db
         cursor = connection.cursor()
-
-        # usersByCountriesQueries = "SELECT subtable.country, count(*) FROM ( SELECT country, session_id, count(*) FROM shop GROUP BY session_id, country) as subtable GROUP BY subtable.country"
-        #clicksByCountriesQueries = "SELECT country, count(*) as clicksNum FROM shop GROUP BY country ORDER BY clicksNum DESC"
-        clicksByCountriesQueries = "SELECT country, count(*) AS users FROM (SELECT country, session_id FROM bi_solutions.shop GROUP BY country, session_id) AS s GROUP BY s.country ORDER BY users DESC"
-        cursor.execute(clicksByCountriesQueries)
-        clicksByCountries = cursor.fetchall()
+        query = ''
+        
+        if clicks:
+            query = clicksByCountriesQueries = "SELECT country, count(*) as count FROM shop GROUP BY country ORDER BY count DESC"
+        else:
+            query = usersByCountriesQueries = "SELECT country, count(*) AS count FROM (SELECT country, session_id FROM shop GROUP BY country, session_id) AS s GROUP BY s.country ORDER BY count DESC"
+        
+        cursor.execute(query)
+        result = cursor.fetchall()
 
         data = []
-        for clicksByCountry in clicksByCountries:
-            country, clicksNum = clicksByCountry
+        for row in result:
+            country, count = row
 
             gdpForCountryQuery = "SELECT `2008` FROM gdp where country='" + country + "'"
             cursor.execute(gdpForCountryQuery)
@@ -108,7 +115,7 @@ class BirthsAndGdpHelper:
             cursor.execute(birthsByCountriesQuery)
             birthByCountry = cursor.fetchall()
             birthsNum = birthByCountry[0][0]
-            data.append({'x' : [gdpForCountry], 'y' : [birthsNum], 'z': [clicksNum], 'name' : country})
+            data.append({'x' : [gdpForCountry], 'y' : [birthsNum], 'z': [count], 'name' : country})
 
         cursor.close()
         connection.close()

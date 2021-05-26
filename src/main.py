@@ -27,7 +27,7 @@ def definirLayout():
             html.H5(id='live-update-text', className="col text-right"),
             dcc.Interval(
                 id='interval-component',
-                interval=1*1000, # in milliseconds
+                interval=60*1000, # in milliseconds
                 n_intervals=0
             ),    
         ], className="row px-4 py-2 align-items-center"),
@@ -67,7 +67,7 @@ def render_content(tab):
 @app.callback(Output('live-update-text', 'children'),
               [Input('interval-component', 'n_intervals')])
 def update_date(n):
-      return [html.Span('Last updated ' +str(datetime.datetime.now().strftime("%d/%B/%Y %H:%M:%S")))]
+      return [html.Span('Last updated ' +str(datetime.datetime.now().strftime("%d/%m/%Y %H:%M")))]
 
 definirLayout()
 if __name__ == '__main__':
