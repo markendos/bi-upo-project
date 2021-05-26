@@ -4,14 +4,13 @@ version: '3'
 # docker-compose build; docker-compose up -d
 # Check with
 # docker ps
-# Then check the logs with
-# docker logs --tail 50 $service_name
-# docker-compose images
-# docker-compose logs --tail 20 $service_name
+# open http://localhost:8555/ in browser
 
 services:
   mysql_db:
     image: mysql:5.7
+    volumes:
+      - ./mysql-dump:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: bi_solutions
@@ -19,17 +18,20 @@ services:
       MYSQL_PASSWORD: admin
     networks:
       - app-tier
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 5s
+      retries: 5
 
   python_app:
-    build: .
-    ports:
-      - "8050:8050"
+    build: ""
     depends_on:
-      - mysql_db
+      mysql_db:
+        condition: service_healthy
+    ports:
+      - "8555:8080"
     networks:
       - app-tier
-    command:
-      tail -f /dev/null
 
 networks:
   app-tier:

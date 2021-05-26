@@ -9,4 +9,6 @@ RUN pip3 install -r requirements.txt
 
 COPY . .
 
-CMD python3 src/mainLuka.py
+EXPOSE 8080
+
+CMD [ "/usr/local/bin/python", "src/mainLuka.py" ]
