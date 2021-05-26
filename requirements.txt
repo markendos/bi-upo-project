@@ -1,0 +1,4 @@
+numpy
+dash
+mysql-connector-python
+pandas
