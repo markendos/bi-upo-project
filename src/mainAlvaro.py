@@ -19,13 +19,13 @@ apbc = AvgPriceByCountry()
 
 tabla_productos_card = dbc.Card([
     dbc.CardBody([
-        html.H2(children='Products that are bought together often'),
+        html.H2(children='Products that are often visited together'),
         pbt.getTable()
     ])
 ], className='h-100 my-4 mx-1 shadow-lg')
 tabla_ventas_card = dbc.Card([
     dbc.CardBody([
-        html.H2(children='Best sales by month'),
+        html.H2(children='Most visited products by month'),
         bsbm.getTable(),
     ])
 ], className='h-100 my-4 mx-1 shadow-lg')
