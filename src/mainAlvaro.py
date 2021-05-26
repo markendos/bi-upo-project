@@ -8,6 +8,8 @@ from AvgPriceByCountry import AvgPriceByCountry
 from ProductsBoughtTogether import ProductsBoughtTogether
 from BestSalesByMonth import BestSalesByMonth
 
+from root import app
+
 numberOfPBT = 5
 pbt = ProductsBoughtTogether()
 bsbm = BestSalesByMonth()
@@ -20,20 +22,20 @@ tabla_productos_card = dbc.Card([
         html.H2(children='Products that are bought together often'),
         pbt.getTable()
     ])
-], className='h-100 my-4 mx-1')
+], className='h-100 my-4 mx-1 shadow-lg')
 tabla_ventas_card = dbc.Card([
     dbc.CardBody([
         html.H2(children='Best sales by month'),
         bsbm.getTable(),
     ])
-], className='h-100 my-4 mx-1')
+], className='h-100 my-4 mx-1 shadow-lg')
 
 grafica_precio_card = dbc.Card([
     dbc.CardBody([
         html.H2(children="Average price by country"),
         dcc.Graph(id="avg_price_country", figure=apbc.getPlot())
     ])
-], className='h-100 my-4 mx-1')
+], className='h-100 my-4 mx-1 shadow-lg')
 
 
 layout = html.Div(
