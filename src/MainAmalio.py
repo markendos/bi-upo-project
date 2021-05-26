@@ -29,6 +29,7 @@ selector_propiedades = html.Div([
         options=ddm.getVariables(),
         value='clicks',
         placeholder="Select a variable",
+        
     )
 ])
 
@@ -37,7 +38,7 @@ radio_items = html.Div([
         id='agg-operation',
         options=[{'label': i, 'value': i} for i in ['Avg', 'Max']],
         value='Avg',
-        labelStyle={'display': 'inline-block', 'padding-left': '1rem'}),
+        labelStyle={'display': 'inline-block', 'margin': '3px'}),
 ])
 
 histograma = html.Div([
@@ -51,12 +52,16 @@ hist_card = dbc.Card([
         radio_items,
         histograma
     ])
+    
 ], className='h-100 my-4 mx-1 shadow-lg')
 
 pie_card = dbc.Card([
     dbc.CardBody([
         selector_paises,
         pie_chart
+    ]),
+    dbc.CardFooter([
+        html.P("Categorías de moda por país")
     ])
 ], className='h-100 my-4 mx-1 shadow-lg')
 # ,style={'height': '100%'})
