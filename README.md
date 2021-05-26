@@ -23,5 +23,5 @@ Steps:
 - Import the data to the database with the command: `mysql -u <user> -p<password> bi_solutions < mysql-dump/dump.sql`
 - Modify DBConnection.py connection parameters according to the local setup
 - Install dependencies with the command: `pip install -r requirements.txt`
-- Run the app with: `python src/main.py` (the app should be available on: 0.0.0.0:8080)
+- Run the app with: `python src/main.py` (the app should be available on: `0.0.0.0:8080`)
 
