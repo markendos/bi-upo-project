@@ -1,26 +1,28 @@
 import dash
 import dash_core_components as dcc
+import dash_bootstrap_components as dbc
 import dash_html_components as html
 import plotly.graph_objects as go
 from dash.dependencies import Input, Output
 from BirthsAndGdpHelper import BirthsAndGdpHelper
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-dataHelper = BirthsAndGdpHelper()
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-app.layout = html.Div(children=[
-    html.Div([
+from root import app
+
+
+dataHelper = BirthsAndGdpHelper()
+graph_card=dbc.Card([
+    dbc.CardBody([
         dcc.RadioItems(
             id='crossfilter-yaxis-type',
             options=[{'label': i, 'value': i} for i in ['Linear', 'Log']],
             value='Linear',
             labelStyle={'display': 'inline-block', 'padding-left': '2rem'}),
-        dcc.Graph(id='births-clicks-graph'),
-    ],
-        style={'width': '100%', 'display': 'flex', 'flex-direction': 'column'}),
-])
+        dcc.Graph(id='births-clicks-graph')
+    ])
+], className='h-100 my-4 mx-1 shadow-lg')
 
+layout=dbc.Col(graph_card,width=5)
 ## BIRTHS
 def create_births_click_graph(data, axis_type):
     fig = go.Figure()
@@ -63,7 +65,5 @@ def update_births_clicks_graph(yaxis_type):
     data = dataHelper.getPlotDataBirthsClicks()
     return create_births_click_graph(data, yaxis_type)
 
-
-
-if __name__ == '__main__':
-    app.run_server(debug=True)
+def get_layout():
+    return layout

@@ -1,5 +1,6 @@
 from logging import PlaceHolder
 import dash
+from dash_bootstrap_components._components.CardHeader import CardHeader
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 import dash_html_components as html
@@ -18,21 +19,26 @@ apbc = AvgPriceByCountry()
 
 
 tabla_productos_card = dbc.Card([
+    dbc.CardHeader(html.H4(children='Products that are often visited together'),),
+    
     dbc.CardBody([
-        html.H2(children='Products that are often visited together'),
+        
         pbt.getTable()
     ])
 ], className='h-100 my-4 mx-1 shadow-lg')
 tabla_ventas_card = dbc.Card([
+    dbc.CardHeader(html.H4(children='Most visited products by month'),),
     dbc.CardBody([
-        html.H2(children='Most visited products by month'),
+        
         bsbm.getTable(),
     ])
 ], className='h-100 my-4 mx-1 shadow-lg')
 
 grafica_precio_card = dbc.Card([
+    dbc.CardHeader(html.H4(children="Average price by country"),),
+    
     dbc.CardBody([
-        html.H2(children="Average price by country"),
+        
         dcc.Graph(id="avg_price_country", figure=apbc.getPlot())
     ])
 ], className='h-100 my-4 mx-1 shadow-lg')

@@ -17,7 +17,7 @@ class ModesDatamart:
         result = cursor.fetchall()
 
         options = list()
-        options.append({'label': 'General', 'value': 'General'})
+        options.append({'label': 'All Countrys', 'value': 'General'})
         for x in result:
             options.append({'label': x[0], 'value': x[0]})
 
