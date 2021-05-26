@@ -46,7 +46,7 @@ card_luka = dbc.Card(
         dbc.CardImg(
             src="https://avatars.githubusercontent.com/u/5711591?v=4", top=True),
         dbc.CardBody(
-            html.P("This card has an image at the top", className="card-text")
+            html.P("Luka Bubalo", className="card-text")
         ),
         dbc.CardFooter([
             html.Li([""])

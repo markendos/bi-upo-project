@@ -13,6 +13,7 @@ import MainAmalio as ma
 import MainMarcos as mm
 import mainAlvaro as malv
 import mainLuka as ml
+import mainLuka2 as ml2
 import about as aboutus
 numberOfPBT = 5
 
@@ -30,14 +31,13 @@ def definirLayout():
                 n_intervals=0
             ),    
         ], className="row px-4 py-2 align-items-center"),
-    html.Div(children=[
+        html.Div(children=[
             dbc.Tabs(
                 [
                     dbc.Tab(label="Tab 1", tab_id="tab-1"),
                     dbc.Tab(label="Tab 2", tab_id="tab-2"),
-                    dbc.Tab(label="Tab 3", tab_id="tab-3"),
-                    dbc.Tab(label="Estrategia", tab_id="tab-4"),
-                    dbc.Tab(label="About us", tab_id="tab-5"),
+                    dbc.Tab(label="Estrategia", tab_id="tab-3"),
+                    dbc.Tab(label="About us", tab_id="tab-4"),
                 ],
                 id="tabs",
                 active_tab="tab-1",
@@ -53,14 +53,14 @@ def definirLayout():
               Input('tabs', 'active_tab'))
 def render_content(tab):
     if tab == 'tab-1':
-        return ma.get_layout()
+        tab_1_card=html.Div([ma.get_layout(),mm.get_layout()])
+        return tab_1_card
+    
     elif tab == 'tab-2':
-        return mm.get_layout()
-    elif tab == 'tab-3':
         return malv.get_layout()
-    elif tab == 'tab-4':
+    elif tab == 'tab-3':
         return ml.get_layout()
-    elif tab == 'tab-5':
+    elif tab == 'tab-4':
         return aboutus.get_layout()
 
 
