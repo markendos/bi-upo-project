@@ -131,3 +131,6 @@ dmypy.json
 # Eclipse IDE
 .project
 .pydevproject
+
+# VSCode IDE
+.vscode
