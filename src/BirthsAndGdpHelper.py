@@ -91,7 +91,8 @@ class BirthsAndGdpHelper:
         cursor = connection.cursor()
 
         # usersByCountriesQueries = "SELECT subtable.country, count(*) FROM ( SELECT country, session_id, count(*) FROM shop GROUP BY session_id, country) as subtable GROUP BY subtable.country"
-        clicksByCountriesQueries = "SELECT country, count(*) as clicksNum FROM shop GROUP BY country ORDER BY clicksNum"
+        #clicksByCountriesQueries = "SELECT country, count(*) as clicksNum FROM shop GROUP BY country ORDER BY clicksNum DESC"
+        clicksByCountriesQueries = "SELECT country, count(*) AS users FROM (SELECT country, session_id FROM bi_solutions.shop GROUP BY country, session_id) AS s GROUP BY s.country ORDER BY users DESC"
         cursor.execute(clicksByCountriesQueries)
         clicksByCountries = cursor.fetchall()
 
