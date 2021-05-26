@@ -5,6 +5,7 @@ import dash_html_components as html
 from ProductsBoughtTogether import ProductsBoughtTogether
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
+import datetime
 
 from root import app
 
@@ -20,7 +21,15 @@ numberOfPBT = 5
 
 def definirLayout():
     app.layout = html.Div(children=[
-    html.H1(children='Sample App'),
+        html.Div(children=[
+            html.H1(children='BI Solutions', className="col"),
+            html.H5(id='live-update-text', className="col text-right"),
+            dcc.Interval(
+                id='interval-component',
+                interval=1*1000, # in milliseconds
+                n_intervals=0
+            ),    
+        ], className="row px-4 py-2 align-items-center"),
     html.Div(children=[
             dbc.Tabs(
                 [
@@ -55,6 +64,10 @@ def render_content(tab):
         return aboutus.get_layout()
 
 
+@app.callback(Output('live-update-text', 'children'),
+              [Input('interval-component', 'n_intervals')])
+def update_date(n):
+      return [html.Span('Last updated ' +str(datetime.datetime.now().strftime("%d/%B/%Y %H:%M:%S")))]
 
 definirLayout()
 if __name__ == '__main__':
