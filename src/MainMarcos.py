@@ -50,7 +50,7 @@ tendency_graph = dbc.Card([
         style={'width': '100%', 'display': 'flex', 'flex-direction': 'column'}),
 
     ])
-], className='h-100 my-4 mx-1')
+], className='h-100 my-4 mx-1 shadow-lg')
 
 layout = html.Div([dbc.Col(tendency_graph)], className='d-flex')
 

@@ -11,7 +11,7 @@ class DistributionsDatamart:
         return [
                 {'label': 'Clicks', 'value': 'clicks'},
                 {'label': 'Price', 'value': 'price'},
-                {'label': 'Number of the page', 'value': 'page'},
+                {'label': 'Page number', 'value': 'page'},
                 ]
     
     def getValues(self, variable):

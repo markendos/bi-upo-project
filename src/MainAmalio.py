@@ -51,14 +51,14 @@ hist_card = dbc.Card([
         radio_items,
         histograma
     ])
-], className='h-100 my-4 mx-1')
+], className='h-100 my-4 mx-1 shadow-lg')
 
 pie_card = dbc.Card([
     dbc.CardBody([
         selector_paises,
         pie_chart
     ])
-], className='h-100 my-4 mx-1')
+], className='h-100 my-4 mx-1 shadow-lg')
 # ,style={'height': '100%'})
 
 layout = html.Div([dbc.Col(hist_card, width=7), dbc.Col(
