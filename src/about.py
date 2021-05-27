@@ -60,14 +60,14 @@ card_sobre_nosotros = html.Div([
     dbc.Col([
         dbc.Card([
             dbc.CardHeader(
-                html.H3("About this proyect",
+                html.H3("About this project",
                         className="card-text")
             ),
             dbc.CardBody([
                 dbc.CardImg(
                     src="https://www.upo.es/escuela-politecnica-superior/wp-content/uploads/2019/11/Logo-UPO-1.png", top=True),
                 ]),
-                html.P("This proyect has been developed for the Business Inteligence course of the GIISI degree of the UPO EPS.")
+                html.P("This project has been developed for the Business Inteligence course of the GIISI degree of the UPO EPS.")
         ])
     ], width=5)
 ], className="d-flex h-100 my-4 mx-3")
