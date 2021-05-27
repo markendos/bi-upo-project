@@ -17,3 +17,9 @@ Execution:
 In the folder src execute the command > python main.py
 
 You can access the deployes app in localhost:8050
+
+docker build -t tagname .
+
+docker-compose up
+
+docker exec -i bi-upo-project_mysql_db_1 mysql -uadmin -padmin bi_solutions < mysql-dump/dump.sql

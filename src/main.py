@@ -16,9 +16,6 @@ import LayoutPredictions as predictions
 import about as aboutus
 numberOfPBT = 5
 
-
-
-
 def definirLayout():
     app.layout = html.Div(children=[
         html.Div(children=[
@@ -73,4 +70,4 @@ def update_date(n):
 
 definirLayout()
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(host='0.0.0.0', port=8080, debug=False)
