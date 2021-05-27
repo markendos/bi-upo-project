@@ -11,4 +11,4 @@ COPY . .
 
 EXPOSE 8080
 
-CMD [ "/usr/local/bin/python", "src/mainLuka.py" ]
+CMD [ "/usr/local/bin/python", "src/main.py" ]
