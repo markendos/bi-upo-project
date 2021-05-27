@@ -1,4 +1,4 @@
-# bi_upo_project
+# BI Solutions
 Repository to host the Business Intelligence course project
 
 ## How to run?
