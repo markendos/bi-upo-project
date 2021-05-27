@@ -30,7 +30,7 @@ def definirLayout():
                 interval=60*1000, # in milliseconds
                 n_intervals=0
             ),    
-        ], className="row px-4 py-2 align-items-center"),
+        ], className="d-flex px-4 py-2 align-items-center"),
         html.Div(children=[
             dbc.Tabs(
                 [
