@@ -66,7 +66,7 @@ hist_card = dbc.Card([
 pie_card = dbc.Card([
     dbc.CardHeader([html.H4(children='Mode by country'),
                     html.Span(
-        children='This chart shows the fashion categories of all countries or grouped by a specific country.'),
+        children='This chart shows the product categories for all countries or grouped by a specific country.'),
     ]),
     dbc.CardBody([
         selector_paises,

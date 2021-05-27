@@ -19,7 +19,7 @@ apbc = AvgPriceByCountry()
 
 
 tabla_productos_card = dbc.Card([
-    dbc.CardHeader(html.H4(children='Products that are often visited together'),),
+    dbc.CardHeader(html.H4(children='Products that are often viewed together'),),
     
     dbc.CardBody([
         
@@ -27,7 +27,7 @@ tabla_productos_card = dbc.Card([
     ])
 ], className='h-100 my-4 mx-1 shadow-lg')
 tabla_ventas_card = dbc.Card([
-    dbc.CardHeader(html.H4(children='Most visited products by month'),),
+    dbc.CardHeader(html.H4(children='Most viewed products by month'),),
     dbc.CardBody([
         
         bsbm.getTable(),
@@ -35,7 +35,7 @@ tabla_ventas_card = dbc.Card([
 ], className='h-100 my-4 mx-1 shadow-lg')
 
 grafica_precio_card = dbc.Card([
-    dbc.CardHeader(html.H4(children="Average price by country"),),
+    dbc.CardHeader(html.H4(children="Average price of viewed products by country"),),
     
     dbc.CardBody([
         

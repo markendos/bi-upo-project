@@ -7,51 +7,11 @@ from dash.dependencies import Input, Output
 from Tendencies import TendenciesDatamart as TDM
 from BirthsAndGdpHelper import BirthsAndGdpHelper
 
-
 from root import app
-
 
 dm = TDM()
 dataHelper = BirthsAndGdpHelper()
-'''
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-app.layout = html.Div(children=[
-    html.Div([
-        html.Div([
-            dcc.Dropdown(
-                id='country-select',
-                options=dm.getValues('country'),
-                value='',
-                placeholder="Select a country",
-                multi=False,
-                disabled=False
-            ),
-        ],
-            style={'width': '100%', 'display': 'flex', 'flex-direction': 'column'}),
-    ],
-        style={'display': 'flex', 'justify-content': 'space-between', 'padding': '2rem'}),
 
-    html.Div([
-        dcc.RadioItems(
-            id='crossfilter-yaxis-type',
-            options=[{'label': i, 'value': i} for i in ['Linear', 'Log']],
-            value='Linear',
-            labelStyle={'display': 'inline-block', 'padding-left': '2rem'}),
-        dcc.Graph(id='births-graph'),
-    ],
-        style={'width': '100%', 'display': 'flex', 'flex-direction': 'column'}),
-
-    html.Div([
-        dcc.RadioItems(
-            id='crossfilter-yaxis-type-2',
-            options=[{'label': i, 'value': i} for i in ['Linear', 'Log']],
-            value='Linear',
-            labelStyle={'display': 'inline-block', 'padding-left': '2rem'}),
-        dcc.Graph(id='gdp-graph'),
-    ],
-        style={'width': '100%', 'display': 'flex', 'flex-direction': 'column'}),
-])'''
 country_selector = html.Div([
     dcc.Dropdown(
         id='country-select',
@@ -83,7 +43,7 @@ radio_buttons2 = html.Div([
 ],
     style={'width': '100%', 'display': 'flex', 'flex-direction': 'column'})
 
-selector_card=dbc.Card([
+selector_card = dbc.Card([
     dbc.CardBody([
         country_selector
     ])
@@ -108,13 +68,11 @@ second_graph_card = dbc.Card([
     ])
 ], className='h-100 my-4 mx-1 shadow-lg')
 
-
-
-row_selector = html.Div([dbc.Col([selector_card],className="offset-6", width=6)])
+row_selector = html.Div([dbc.Col([selector_card], className="offset-6", width=6)])
 row_graph = html.Div([dbc.Col(first_graph_card, width=12)])
 row_graph2 = html.Div([dbc.Col(second_graph_card, width=12)])
 
-layout=html.Div([row_selector,row_graph,row_graph2])
+layout = html.Div([row_selector, row_graph, row_graph2])
 # BIRTHS
 
 
@@ -175,9 +133,10 @@ def update_gdp_graph(country, yaxis_type):
         country, 2021)
     return create_gdp_graph(data, yaxis_type, predictionForNextYear)
 
+
 def get_layout():
     return layout
 
-'''
+
 if __name__ == '__main__':
-    app.run_server(debug=True)'''
+    app.run_server(debug=True)

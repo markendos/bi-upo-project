@@ -9,11 +9,8 @@ card_amalio = dbc.Card(
         dbc.CardImg(
             src="https://avatars.githubusercontent.com/u/22647389?v=4", top=True),
         dbc.CardBody(
-            html.P("Amalio Cabeza Palacios", className="card-text")
+            html.A(href="https://github.com/AmalioF96",target="_blank", children="Amalio Cabeza Palacios" ,className="card-text")
         ),
-        dbc.CardFooter([
-            html.Li([""])
-        ], style={"class": "bi-github", "role": "img", 'aria-label': "GitHub"})
     ], className='h-100 my-4 mx-1 shadow-lg',
 )
 
@@ -22,11 +19,8 @@ card_marcos = dbc.Card(
         dbc.CardImg(
             src="https://avatars.githubusercontent.com/u/57869508?v=4", top=True),
         dbc.CardBody(
-            html.P("Marcos Witzl Daza", className="card-text")
+            html.A(href="https://github.com/markendos", target="_blank", children="Marcos Witzl Daza", className="card-text")
         ),
-        dbc.CardFooter([
-            html.Li([""])
-        ], style={"class": "bi-github", "role": "img", 'aria-label': "GitHub"})
     ], className='h-100 my-4 mx-1 shadow-lg',
 )
 card_alvaro = dbc.Card(
@@ -34,11 +28,8 @@ card_alvaro = dbc.Card(
         dbc.CardImg(
             src="https://avatars.githubusercontent.com/u/48862983?v=4", top=True),
         dbc.CardBody(
-            html.P("Álvaro Navaro Mora", className="card-text")
+            html.A(href="https://github.com/AlvaroNavarroMora", target="_blank", children="Álvaro Navaro Mora", className="card-text")
         ),
-        dbc.CardFooter([
-            html.Li([""])
-        ], style={"class": "bi-github", "role": "img", 'aria-label': "GitHub"})
     ], className='h-100 my-4 mx-1 shadow-lg',
 )
 card_luka = dbc.Card(
@@ -46,11 +37,8 @@ card_luka = dbc.Card(
         dbc.CardImg(
             src="https://avatars.githubusercontent.com/u/5711591?v=4", top=True),
         dbc.CardBody(
-            html.P("Luka Bubalo", className="card-text")
+            html.A(href="https://github.com/lukebee", target="_blank", children="Luka Bubalo", className="card-text")
         ),
-        dbc.CardFooter([
-            html.Li([""])
-        ], style={"class": "bi-github", "role": "img", 'aria-label': "GitHub"})
     ], className='h-100 my-4 mx-1 shadow-lg',
 )
 
@@ -76,9 +64,9 @@ card_sobre_nosotros = html.Div([
                         className="card-text")
             ),
             dbc.CardBody([
-                html.P("Conclusión del documento", className="card-text"),
-                html.P("Este proyecto ha sido desarrollado aprovechando las tecnologías Dash y Python", className="card-text"),
-            ])
+                dbc.CardImg(
+                    src="", top=True),
+                ])
         ])
     ], width=5)
 ], className="d-flex h-100 my-4 mx-3")

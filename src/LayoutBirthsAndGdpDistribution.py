@@ -13,9 +13,9 @@ from root import app
 dataHelper = BirthsAndGdpHelper()
 graph_card = dbc.Card([
     dbc.CardHeader([
-        html.H4(children='Tendency Graph'),
+        html.H4(children='Bubble Graph'),
         html.Span(
-            children='This chart show the tendency of the numeric variables on the time.'),
+            children='This chart shows a 2D representation of the GDP, births and number of clicks/users grouped by country (2008).'),
     ]),
     dbc.CardBody([
         dcc.RadioItems(
@@ -49,7 +49,7 @@ def create_births_click_graph(data, queryType):
             text=[
                 'Country: {}'.format(record['name']) +
                 '<br>GDP: {}'.format(record['x']) +
-                '<br>Birth number: {}'.format(record['y']) +
+                '<br>Number of births: {}'.format(record['y']) +
                 '<br>Number of {}: {}'.format(queryType, record['z'])
             ],
             marker=dict(

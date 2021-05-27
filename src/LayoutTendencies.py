@@ -38,9 +38,9 @@ radio_items = dcc.RadioItems(
 
 tendency_graph = dbc.Card([
     dbc.CardHeader([
-        html.H4(children='Tendency Graph'),
+        html.H4(children='Trend Graph'),
     html.Span(
-            children='This chart show the tendency of the nominal variables on the time.')
+            children='This chart shows the trends for values of the nominal variables over time.')
     ]),
     dbc.CardBody([
         html.Div([
@@ -70,7 +70,7 @@ def create_time_series(data, axis_type, variable):
     fig.update_yaxes(type='linear' if axis_type == 'Linear' else 'log')
     if variable == '':
         variable = 'none'
-    fig.update_layout(title="Tendency chart ({})".format(variable), xaxis_title="Date",
+    fig.update_layout(title="Trend chart ({})".format(variable), xaxis_title="Date",
                       yaxis_title="Frequency", margin={'l': 20, 'b': 30, 'r': 10, 't': 40})
 
     return fig

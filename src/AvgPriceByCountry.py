@@ -11,7 +11,7 @@ class AvgPriceByCountry:
     def getPlot(self):
         db = DBConnection().db
         cursor = db.cursor()
-        cursor.execute("select country, avg(price) from bi_solutions.shop group by country")
+        cursor.execute("SELECT country, AVG(price) FROM shop GROUP BY country")
         result = cursor.fetchall()
         c = []
         p = []
