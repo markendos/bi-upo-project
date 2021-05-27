@@ -58,18 +58,6 @@ card_sobre_nosotros = html.Div([
     dbc.Col([
         dbc.Card([
             dbc.CardHeader(
-                html.H3("Dashboard",
-                        className="card-text")
-            ),
-            dbc.CardBody([
-                html.P("Conclusión del documento", className="card-text"),
-                html.P("Este proyecto ha sido desarrollado aprovechando las tecnologías Dash y Python", className="card-text"),
-            ])
-        ])
-    ], width=5),
-    dbc.Col([
-        dbc.Card([
-            dbc.CardHeader(
                 html.H3("Developers",
                         className="card-text")
             )
@@ -80,7 +68,19 @@ card_sobre_nosotros = html.Div([
             dbc.Col(card_alvaro),
             dbc.Col(card_marcos),
         ], className='d-flex')
-    ], width=7)
+    ], width=7),
+    dbc.Col([
+        dbc.Card([
+            dbc.CardHeader(
+                html.H3("Dashboard",
+                        className="card-text")
+            ),
+            dbc.CardBody([
+                html.P("Conclusión del documento", className="card-text"),
+                html.P("Este proyecto ha sido desarrollado aprovechando las tecnologías Dash y Python", className="card-text"),
+            ])
+        ])
+    ], width=5)
 ], className="d-flex h-100 my-4 mx-3")
 
 layout=card_sobre_nosotros
