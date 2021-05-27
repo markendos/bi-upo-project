@@ -36,7 +36,7 @@ def definirLayout():
                 [
                     dbc.Tab(label="Tab 1", tab_id="tab-1"),
                     dbc.Tab(label="Tab 2", tab_id="tab-2"),
-                    dbc.Tab(label="Estrategia", tab_id="tab-3"),
+                    dbc.Tab(label="Stratergy", tab_id="tab-3"),
                     dbc.Tab(label="About us", tab_id="tab-4"),
                 ],
                 id="tabs",

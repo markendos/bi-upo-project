@@ -90,11 +90,19 @@ selector_card=dbc.Card([
 ], className='h-100 my-4 mx-1 shadow-lg ')
 
 first_graph_card = dbc.Card([
+     dbc.CardHeader([html.H4(children='Birth Predictions'),
+                    html.Span(
+        children='Prediction of births in each country.'),
+    ]),
     dbc.CardBody([
         radio_buttons1
     ])
 ], className='h-100 my-4 mx-1 shadow-lg')
 second_graph_card = dbc.Card([
+     dbc.CardHeader([html.H4(children='GDP Predictions'),
+                    html.Span(
+        children='Prediction of GDP in each country.'),
+    ]),
     dbc.CardBody([
         radio_buttons2
     ])

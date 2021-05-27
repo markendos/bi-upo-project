@@ -11,19 +11,28 @@ from root import app
 
 
 dataHelper = BirthsAndGdpHelper()
-graph_card=dbc.Card([
+graph_card = dbc.Card([
+    dbc.CardHeader([
+        html.H4(children='Tendency Graph'),
+        html.Span(
+            children='This chart show the tendency of the numeric variables on the time.'),
+    ]),
     dbc.CardBody([
         dcc.RadioItems(
             id='crossfilter-query-type',
-            options=[{'label': i, 'value': i} for i in ['Clicks', 'Sessions (users)']],
+            options=[{'label': i, 'value': i}
+                     for i in ['Clicks', 'Sessions (users)']],
             value='Clicks',
             labelStyle={'display': 'inline-block', 'padding-left': '1rem'}),
+        html.Br(),
         dcc.Graph(id='births-clicks-graph')
     ])
 ], className='h-100 my-4 mx-1 shadow-lg')
 
-layout=dbc.Col(graph_card,width=5)
-## BIRTHS
+layout = dbc.Col(graph_card, width=5)
+# BIRTHS
+
+
 def create_births_click_graph(data, queryType):
     fig = go.Figure()
 
@@ -56,12 +65,14 @@ def create_births_click_graph(data, queryType):
 
     return fig
 
+
 @app.callback(
     Output('births-clicks-graph', 'figure'),
     [Input('crossfilter-query-type', 'value')])
 def update_births_clicks_graph(queryType):
     data = dataHelper.getPlotDataBirthsClicks(queryType == 'Clicks')
     return create_births_click_graph(data, queryType)
+
 
 def get_layout():
     return layout

@@ -51,7 +51,7 @@ hist_card = dbc.Card([
     dbc.CardHeader([
         html.H4(children='Frequency histogram'),
         html.Span(
-            children='Histogram with the value distribution of the numeric variables grouped by user session with aggregation options')
+            children='Histogram with the value distribution of the numeric variables grouped by user session with aggregation options.')
     ]),
 
     dbc.CardBody([
@@ -63,7 +63,10 @@ hist_card = dbc.Card([
 ], className='h-100 my-4 mx-1 shadow-lg')
 
 pie_card = dbc.Card([
-    dbc.CardHeader(html.H4(children='Mode by country'),),
+    dbc.CardHeader([html.H4(children='Mode by country'),
+                    html.Span(
+        children='This chart shows the fashion categories of all countries or grouped by a specific country.'),
+    ]),
     dbc.CardBody([
         selector_paises,
         pie_chart

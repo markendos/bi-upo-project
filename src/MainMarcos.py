@@ -37,6 +37,11 @@ radio_items = dcc.RadioItems(
             labelStyle={'display': 'inline-block', 'padding-left': '2rem'})
 
 tendency_graph = dbc.Card([
+    dbc.CardHeader([
+        html.H4(children='Tendency Graph'),
+    html.Span(
+            children='This chart show the tendency of the numeric variables on the time.')
+    ]),
     dbc.CardBody([
         html.Div([
         selector_variables,
