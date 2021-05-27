@@ -99,9 +99,9 @@ def create_pie(datos, value):
 
     my_v = datos['v']
     my_n = datos["n"]
+    
     fig.add_trace(go.Pie(labels=my_n, values=my_v))
 
-    # , margin={'l': 20, 'b': 30, 'r': 10, 't': 40})
     fig.update_layout(title="Mode of ({})".format(value))
 
     return fig
