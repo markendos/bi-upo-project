@@ -33,8 +33,8 @@ def definirLayout():
         html.Div(children=[
             dbc.Tabs(
                 [
-                    dbc.Tab(label="Tab 1", tab_id="tab-1"),
-                    dbc.Tab(label="Tab 2", tab_id="tab-2"),
+                    dbc.Tab(label="General", tab_id="tab-1"),
+                    dbc.Tab(label="Status", tab_id="tab-2"),
                     dbc.Tab(label="Strategy", tab_id="tab-3"),
                     dbc.Tab(label="About us", tab_id="tab-4"),
                 ],
