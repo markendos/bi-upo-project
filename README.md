@@ -5,8 +5,6 @@ Repository to host the Business Intelligence course project
 
 ### Docker
 
-`docker build -t firsttag .`
-
 `docker-compose up --build`
 
 The build process should take about 30 s and the app is then available on: `localhost:8555`
