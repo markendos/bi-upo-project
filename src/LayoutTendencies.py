@@ -40,7 +40,7 @@ tendency_graph = dbc.Card([
     dbc.CardHeader([
         html.H4(children='Tendency Graph'),
     html.Span(
-            children='This chart show the tendency of the numeric variables on the time.')
+            children='This chart show the tendency of the nominal variables on the time.')
     ]),
     dbc.CardBody([
         html.Div([

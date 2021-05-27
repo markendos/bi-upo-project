@@ -1,4 +1,4 @@
-import mainLuka2 as ml2
+
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 import dash_html_components as html
@@ -6,6 +6,7 @@ import plotly.graph_objects as go
 from dash.dependencies import Input, Output
 from Distributions import DistributionsDatamart as DDM
 from Modes import ModesDatamart as MDM
+import LayoutBirthsAndGdpDistribution as births_and_gdp_distribution
 
 from root import app
 
@@ -74,7 +75,7 @@ pie_card = dbc.Card([
 
 ], className='h-100 my-4 mx-1 shadow-lg')
 
-bubble_plot = ml2.get_layout()
+bubble_plot = births_and_gdp_distribution.get_layout()
 
 layout = html.Div([dbc.Col(hist_card, width=4), bubble_plot, dbc.Col(
     pie_card, width=3)], className='d-flex my-4')

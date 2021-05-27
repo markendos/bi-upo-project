@@ -58,7 +58,7 @@ card_sobre_nosotros = html.Div([
     dbc.Col([
         dbc.Card([
             dbc.CardHeader(
-                html.H3("Cuadro de mandos",
+                html.H3("Dashboard",
                         className="card-text")
             ),
             dbc.CardBody([
@@ -70,15 +70,15 @@ card_sobre_nosotros = html.Div([
     dbc.Col([
         dbc.Card([
             dbc.CardHeader(
-                html.H3("Desarrolladores del proyecto",
+                html.H3("Developers",
                         className="card-text")
             )
         ]),
         html.Div([
+            dbc.Col(card_luka),
             dbc.Col(card_amalio),
-            dbc.Col(card_marcos),
             dbc.Col(card_alvaro),
-            dbc.Col(card_luka)
+            dbc.Col(card_marcos),
         ], className='d-flex')
     ], width=7)
 ], className="d-flex h-100 my-4 mx-3")

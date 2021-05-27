@@ -9,11 +9,10 @@ import datetime
 
 from root import app
 
-import MainAmalio as ma
-import MainMarcos as mm
-import mainAlvaro as malv
-import mainLuka as ml
-import mainLuka2 as ml2
+import LayoutDistributionAndMode as distribution_and_mode
+import LayoutTendencies as tendencies
+import LayoutShopStatus as shop_status
+import LayoutPredictions as predictions
 import about as aboutus
 numberOfPBT = 5
 
@@ -36,7 +35,7 @@ def definirLayout():
                 [
                     dbc.Tab(label="Tab 1", tab_id="tab-1"),
                     dbc.Tab(label="Tab 2", tab_id="tab-2"),
-                    dbc.Tab(label="Stratergy", tab_id="tab-3"),
+                    dbc.Tab(label="Strategy", tab_id="tab-3"),
                     dbc.Tab(label="About us", tab_id="tab-4"),
                 ],
                 id="tabs",
@@ -53,13 +52,16 @@ def definirLayout():
               Input('tabs', 'active_tab'))
 def render_content(tab):
     if tab == 'tab-1':
-        tab_1_card=html.Div([ma.get_layout(),mm.get_layout()])
+        tab_1_card=html.Div([
+            distribution_and_mode.get_layout(),
+            tendencies.get_layout()
+            ])
         return tab_1_card
     
     elif tab == 'tab-2':
-        return malv.get_layout()
+        return shop_status.get_layout()
     elif tab == 'tab-3':
-        return ml.get_layout()
+        return predictions.get_layout()
     elif tab == 'tab-4':
         return aboutus.get_layout()
 
